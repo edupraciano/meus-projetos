@@ -1,0 +1,1061 @@
+<!-- Back-up do programa completo - HTML -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <title>Projeto CRUD - Dante</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base target="_top">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/scroller/2.2.0/css/scroller.dataTables.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/scroller/2.2.0/js/dataTables.scroller.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+</head>
+
+<body>
+
+  <!-- parte do PopUp -->
+  <div id="popup">
+    <div id="popup-content">
+      <h3>Usuário Não Localizado!</h3>
+      <button class=" btn" id="close-btn">Fechar</button>
+    </div>
+  </div>
+  <!-- CSS do PopUp -->
+  <style>
+    body {
+      font-family: arial, helvetica, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f5f0f0d0;
+      outline: 0;
+      box-sizing: border-box;
+    }
+
+    #popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    #popup-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      box-shadow: 0px 0px 10px rgba(11, 2, 43, 0.5);
+      padding: 20px;
+      border-radius: 5px;
+    }
+  </style>
+
+  <!-- parte do login -->
+
+  <div id="divMeuLogin">
+    <h3>Área de Login</h3>
+    <label for="userName">Usuário</label>
+    <input type="text" id="userName">
+    <label for="password">Senha</label>
+    <input type="password" id="password">
+    <button onclick="btnLogin()">ENTRAR</button>
+    <h4>Primeiro Acesso?</h4>
+    <button onclick="mostrar_cadastrar_se()">CADASTRE-SE</button>
+  </div>
+
+  <div id="div_cadastrar_se">
+
+    <h3>Cadastre <br>Seus Dados</h3>
+    <label for="novo_usuario">Usuário</label>
+    <input type="text" id="novo_usuario" required>
+    <label for="novo_email">Email</label>
+    <input type="email" id="novo_email" required>
+    <label for="nova_senha">Senha</label>
+    <input type="password" id="nova_senha" required>
+    <button type="submit" id="" onclick="enviar_email_confirmacao()">Enviar E-mail</button>
+
+  </div>
+  <!-- CSS da área de login -->
+  <style>
+    body {
+      font-family: arial, helvetica, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f5f0f0d0;
+    }
+
+    #divMeuLogin {
+      display: none;
+      position: absolute;
+      padding: 0.5em;
+      border: solid 1px #d8d8ff;
+      text-align: center;
+      border-radius: 5px;
+      background-color: #e9e9e9d0;
+      box-shadow: 0px 0px 10px rgba(11, 2, 43, 0.5);
+      width: 300px;
+      height: auto;
+    }
+
+    #divMeuLogin>input {
+      position: relative;
+      top: -15px;
+      width: 250px;
+      height: 0.8em;
+      padding: 0 auto;
+      margin: 0.5em auto;
+      font-size: 1.2em;
+      outline: 0;
+    }
+
+    #divMeuLogin>button {
+      border: 1px solid #313030;
+      padding: 0 auto;
+      margin: 0 auto;
+      margin-top: 0.5em;
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.1em;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 5px;
+      width: 250px;
+      height: 2em;
+      background-color: #156c81;
+      border: 1px solid rgb(49, 48, 48);
+    }
+
+    #divMeuLogin>button:hover {
+      background-color: #117b96;
+      color: #ffffff;
+      transition: 300ms;
+    }
+
+    #divMeuLogin>label {
+      position: relative;
+      top: -10px;
+      color: #0d235e;
+      text-align: left;
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 0 auto;
+      margin-left: 22px;
+    }
+
+    #divMeuLogin>h3 {
+      font-size: 1.8em;
+      font-weight: 800;
+      color: #0d235e;
+      margin-bottom: 2em;
+      border: 1px solid #0d235e;
+      padding: 0.3em 0;
+      width: 250px;
+      text-align: center;
+      margin: 1em auto 1.5em auto;
+      border: 1px solid rgb(184, 184, 184);
+    }
+
+    #divMeuLogin>h4 {
+      color: #0d235e;
+      text-align: left;
+      font-size: 1em;
+      font-weight: bold;
+      margin-bottom: 1.5em;
+      text-align: center;
+    }
+
+    #divMeuLogin> :nth-child(7) {
+      position: relative;
+      margin-top: 30px;
+      top: 20px;
+    }
+
+    #divMeuLogin> :nth-child(8) {
+      position: relative;
+      margin-bottom: 2em;
+    }
+
+    .btn {
+      border: 1px solid #ffffff;
+      padding: 0.5em 1em;
+      margin: 0.5em 0;
+      background-color: #156c81;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9em;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 5px;
+      height: auto;
+      width: 200px;
+      text-align: center;
+    }
+
+    .btn:hover {
+      background-color: #117b96;
+      color: #ffffff;
+      transition: 300ms;
+      font-weight: 500
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid rgb(184, 184, 184);
+      width: 92%;
+      font-size: 22px;
+    }
+
+    input[type="text"]:hover {
+      background-color: #e8ebff;
+      transition: 300ms;
+      cursor: context-menu;
+    }
+
+    input[type="password"]:hover {
+      background-color: #e8ebff;
+      transition: 300ms;
+      cursor: context-menu;
+    }
+
+    input[type="email"]:hover {
+      background-color: #e8ebff;
+      transition: 300ms;
+      cursor: context-menu;
+    }
+
+    #div_cadastrar_se {
+      display: none;
+      position: absolute;
+      padding: 0.5em;
+      border: solid 1px #d8d8ff;
+      text-align: center;
+      border-radius: 5px;
+      background-color: #e9e9e9d0;
+      box-shadow: 0px 0px 10px rgba(11, 2, 43, 0.5);
+      width: 300px;
+      height: auto;
+    }
+
+    #div_cadastrar_se>button {
+      border: 1px solid #313030;
+      padding: 0.3em 1em;
+      margin: 1.5em 0;
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.1em;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 5px;
+      height: auto;
+      background-color: #156c81;
+      border: 1px solid rgb(49, 48, 48);
+    }
+
+    #div_cadastrar_se>h3 {
+      font-size: 1.6em;
+      font-weight: 800;
+      color: #0d235e;
+      margin-bottom: 2em;
+      border: 1px solid #0d235e;
+      padding: 0.3em 0;
+      width: 250px;
+      text-align: center;
+      margin: 1em auto 1.5em auto;
+      border: 1px solid rgb(184, 184, 184);
+    }
+
+    #div_cadastrar_se>label {
+      position: relative;
+      top: -10px;
+      color: #0d235e;
+      text-align: left;
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 0 auto;
+      margin-left: 22px;
+    }
+
+    #div_cadastrar_se>input {
+      position: relative;
+      top: -15px;
+      width: 250px;
+      height: 0.8em;
+      padding: 0 auto;
+      margin: 0.5em auto;
+      font-size: 1.2em;
+      outline: 0;
+    }
+
+    #div_cadastrar_se>input {
+      font-size: 22px;
+    }
+
+    #div_cadastrar_se>input[type="email"] {
+      font-size: 22px;
+    }
+
+    #div_cadastrar_se>button:hover {
+      background-color: #117b96;
+      color: #ffffff;
+      transition: 300ms;
+    }
+
+    #div_cadastrar_se> :nth-child(4) {
+      margin-top: 0.6em;
+    }
+
+    #div_cadastrar_se> :nth-child(6) {
+      margin-top: 0.6em;
+    }
+
+    #div_cadastrar_se> :nth-child(7) {
+      margin-top: 0.6em;
+    }
+
+    #div_cadastrar_se> :nth-child(8) {
+      display: inline-block;
+      width: 250px;
+      padding: 1em auto;
+      margin: 0.5em auto 1.5em auto;
+      text-align: center;
+    }
+  </style>
+
+  <!-- parte do sistema -->
+  <div id="divDentroDoSistema">
+
+    <div id="divMeuLogout">
+      <label for="usuarioLogado" id="usuarioLogado"></label>
+      <button class="btn" onclick="btnLogout()">SAIR</button>
+    </div>
+
+    <div id="menuDeNavegacao">
+      <button class="btn" onclick="abreCadastroDeFuncionarios()">Formulário de Cadastro</button>
+      <button class="btn" onclick="abreTabelaDeFuncionarios()">Tabela de Funcionário</button>
+      <button class="btn" onclick="abreAlteracaoDeSenha()">Alterar Senha</button>
+    </div>
+
+    <div id="formularioDeCadastroDeFuncionario">
+      <h2 class="tituloDaCaixa">CADASTRO DE FUNCIONÁRIO</h2>
+      <div>
+        <label for="idDoFuncionario">ID</label>
+        <br>
+        <input type="text" id="idDoFuncionario" disabled />
+      </div>
+      <div>
+        <label for="nomeDoFuncionario">Nome</label>
+        <br>
+        <input type="text" id="nomeDoFuncionario" />
+      </div>
+      <div>
+        <label for="cargoDoFuncionario">Cargo</label>
+        <br>
+        <input type="text" id="cargoDoFuncionario" />
+      </div>
+      <div>
+        <label for="salarioDoFuncionario">Salário</label>
+        <br>
+        <input type="text" id="salarioDoFuncionario" />
+      </div>
+      <!-- <div class="botao-de-formulario"> -->
+      <button class="btn-verde" onclick="disparaAoClicar()">
+        CADASTRAR
+      </button>
+      <button class=" btn-red" onclick="excluirEsteId()">
+        EXCLUIR
+      </button>
+      <button class=" btn-orange" class="btn" onclick="disparaAoClicar()">
+        ALTERAR
+      </button>
+      <!-- </div> -->
+    </div>
+
+    <div id="formularioDeAlteracaoDeSenha">
+      <h2 class="tituloDaCaixa">ALTERAR SENHA</h2>
+      <div>
+        <label for="idDaSenhaAntiga">Senha Atual</label>
+        <br>
+        <input type="password" id="idDaSenhaAntiga" />
+      </div>
+      <div>
+        <label for="idDaSenhaNova">Nova Senha</label>
+        <br>
+        <input type="password" id="idDaSenhaNova" />
+      </div>
+
+      <button class="btn" onclick="alterarASenha()">
+        ALTERAR
+      </button>
+
+    </div>
+
+    <div id="divTabelaDeFuncionarios">
+
+      <h2>Tabela de Funcionários</h2>
+
+      <table id="example" class="display nowrap" style="width:100%">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Cargo</th>
+            <th>Salário</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+  <!-- CSS da área de dentro do Sistema -->
+  <style>
+    body {
+      font-family: arial, helvetica, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #ffffffd0;
+    }
+
+    .btn-verde {
+      height: auto;
+      width: 150px;
+      background-color: green;
+      color: #fff;
+      font-size: 1em;
+      text-align: center;
+      padding: 0.7em 1em;
+      margin: 0.5em 0;
+      text-align: center;
+      cursor: pointer;
+      border: 1px solid rgb(49, 48, 48);
+      border-radius: 5px;
+    }
+
+    .btn-verde:hover {
+      background-color: rgb(8, 104, 8);
+      color: #ffffff;
+      transition: 300ms;
+    }
+
+    .btn-red {
+      height: auto;
+      width: 150px;
+      background-color: red;
+      color: #fff;
+      font-size: 1em;
+      text-align: center;
+      padding: 0.7em 1em;
+      margin: 0.5em 0;
+      text-align: center;
+      cursor: pointer;
+      border: 1px solid rgb(49, 48, 48);
+      border-radius: 5px;
+    }
+
+    .btn-red:hover {
+      background-color: rgb(209, 7, 7);
+      color: #ffffff;
+      transition: 300ms;
+    }
+
+    .btn-orange {
+      height: auto;
+      width: 150px;
+      background-color: orange;
+      color: #fff;
+      font-size: 1em;
+      text-align: center;
+      padding: 0.7em 1em;
+      margin: 0.5em 0;
+      text-align: center;
+      cursor: pointer;
+      border: 1px solid rgb(49, 48, 48);
+      border-radius: 5px;
+    }
+
+    .btn-orange:hover {
+      background-color: rgb(219, 146, 10);
+      color: #ffffff;
+      transition: 300ms;
+    }
+
+    #usuarioLogado {
+      font-size: 22px;
+    }
+
+    #example_filter {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    #example_filter>label {
+      text-align: left;
+      width: 70%;
+    }
+
+    #example_filter>label>input[type="search"] {
+      text-align: left;
+      width: 90%;
+      margin-bottom: 2em;
+      border-radius: 5px;
+      height: 3em;
+    }
+
+    #example_filter>label>input[type="search"]:hover {
+      background-color: #e8ebff;
+      transition: 300ms;
+    }
+
+    #example>tbody {
+      text-align: left;
+    }
+
+    thead>tr {
+      background-color: #156c81;
+      color: #fff;
+      text-align: center;
+      font-size: 20px;
+    }
+
+    #example>tbody>tr:hover {
+      background-color: #e8ebff;
+    }
+
+    #example_info {
+      font-size: 14px;
+      color: #156c81;
+      margin-bottom: 2em;
+      text-align: center;
+    }
+
+    #divDentroDoSistema {
+      display: none;
+      grid-template-rows: 0.5fr 0.5fr 9fr;
+      width: 90%;
+      height: auto;
+      padding: 0.5em;
+      border: solid 1px #e8e8f7;
+      text-align: center;
+      border-radius: 5px;
+      background-color: #e6feffd0;
+      box-shadow: 0px 0px 10px rgba(11, 2, 43, 0.5);
+    }
+
+    #divMeuLogout {
+      display: none;
+    }
+
+    #divMeuLogout>button {
+      width: auto;
+      background-color: #156c81;
+      border: 1px solid rgb(49, 48, 48);
+    }
+
+    #divMeuLogout>button:hover {
+      background-color: #117b96;
+    }
+
+    #formularioDeAlteracaoDeSenha {
+      display: none;
+      background-color: #f8fcfd;
+      grid-template-rows: min-content min-content min-content min-content min-content min-content;
+      box-shadow: 0px 0px 10px rgba(11, 2, 43, 0.5);
+      margin: 1.5em;
+      height: auto;
+      vertical-align: center;
+    }
+
+    #formularioDeAlteracaoDeSenha> :nth-child(1) {
+      text-align: center;
+      margin-top: 2em;
+      color: #156c81;
+    }
+
+    #formularioDeAlteracaoDeSenha>div {
+      box-shadow: 0px 0px 10px rgba(11, 2, 43, 0.5);
+      display: block;
+      border-radius: 10px;
+      padding: 0.8em;
+      margin: 0.5em;
+      width: 50%;
+      margin-left: 23.5%;
+      text-align: left;
+      font-size: 21px;
+      justify-content: center;
+      height: auto;
+    }
+
+    #formularioDeAlteracaoDeSenha>div>input {
+      width: 97%;
+      text-align: left;
+      font-size: 21px;
+    }
+
+    #formularioDeAlteracaoDeSenha>div>input:hover {
+      background-color: #e8ebff;
+    }
+
+    #formularioDeAlteracaoDeSenha> :nth-child(4) {
+      margin: 2em;
+      border: 1px solid rgb(49, 48, 48);
+    }
+
+    #formularioDeCadastroDeFuncionario {
+      display: none;
+      grid-template-rows: min-content min-content min-content min-content min-content min-content;
+      box-shadow: 0px 0px 10px rgba(11, 2, 43, 0.5);
+      margin: 1.5em;
+      height: auto;
+      background-color: #f8fcfd;
+    }
+
+    #formularioDeCadastroDeFuncionario>div {
+      box-shadow: 0px 0px 10px rgba(11, 2, 43, 0.5);
+      display: block;
+      border-radius: 10px;
+      padding: 0.8em;
+      margin: 0.5em;
+      width: 50%;
+      margin-left: 23.5%;
+      text-align: left;
+      font-size: 21px;
+      justify-content: center;
+      height: auto;
+    }
+
+    #formularioDeCadastroDeFuncionario>div>input {
+      width: 97%;
+      text-align: left;
+      font-size: 21px;
+    }
+
+    #formularioDeCadastroDeFuncionario>div>input:hover {
+      background-color: #e8ebff;
+    }
+
+    #formularioDeCadastroDeFuncionario>div:nth-child(2)>input {
+      background-color: #dfdfdf;
+    }
+
+    #formularioDeCadastroDeFuncionario> :nth-child(1) {
+      text-align: center;
+      color: #156c81;
+    }
+
+    #formularioDeCadastroDeFuncionario> :nth-child(6) {
+      text-align: center;
+      height: auto;
+      margin-bottom: 2em;
+    }
+
+    #divTabelaDeFuncionarios {
+      background-color: #f8fcfd;
+      grid-template-rows: min-content min-content min-content min-content min-content min-content;
+      box-shadow: 0px 0px 10px rgba(11, 2, 43, 0.5);
+      border-radius: 10px;
+      padding: 0 1em;
+      margin: 1.5em;
+      font-size: 22px;
+    }
+
+    #divTabelaDeFuncionarios>:nth-child(1) {
+      text-align: center;
+      color: #156c81;
+    }
+
+    #menuDeNavegacao {
+      display: none;
+    }
+
+    #menuDeNavegacao>button {
+      background-color: #156c81;
+      border: 1px solid rgb(49, 48, 48);
+    }
+
+    #menuDeNavegacao>button:hover {
+      background-color: #117b96;
+    }
+  </style>
+
+  </div>
+
+</body>
+
+<script>
+  var minhaUrl =
+    "https://script.google.com/macros/s/AKfycby_tv_qsUz7jLwS1GpxS3ducAYQlfkhXi8KS__GEFsEOH-WuQHBXPmNu7f69Hv5RwOMJA/exec";
+
+  $(document).ready(function () {
+    ///// PARTE DA AUTENTICAÇÃO DO USUÁRIO //////////////////
+    var userName = localStorage.getItem('userName');
+    var password = localStorage.getItem('password');
+    /////////////////////////////////////////////////////////
+
+    console.log(userName);
+    console.log(password);
+
+    // Esconde o popup
+    $('#close-btn').click(function () {
+      $('#popup').hide();
+    });
+
+    if (userName == '') {
+      $('#divMeuLogin').fadeOut(0, function () {
+        $('#divMeuLogin').fadeIn(1000);
+      });
+      document.getElementById('divMeuLogin').style.display = 'grid';
+      document.getElementById('div_cadastrar_se').style.display = 'none';
+
+    } else {
+      $.ajax({
+        type: 'POST',
+        data: {
+          qualFuncao: 'fazLogin',
+          userName: userName,
+          password: password,
+        },
+        url: minhaUrl,
+      }).done(function (data) {
+
+        if (data == 'true') {
+          // Eu estou logado          
+          $('#divDentroDoSistema').fadeOut(0, function () {
+            $('#divDentroDoSistema').fadeIn(250);
+          });
+          document.getElementById('divDentroDoSistema').style.display = 'grid';
+
+          document.getElementById('divMeuLogout').style.display = 'block';
+          document.getElementById('menuDeNavegacao').style.display = 'block';
+          document.getElementById('divTabelaDeFuncionarios').style.display =
+            'none';
+
+          document.getElementById('usuarioLogado').innerHTML =
+            'Bem vindo(a), ' + userName;
+        } else {
+          // Eu não estou logado
+          document.getElementById('divMeuLogin').style.display = 'grid';
+        }
+      });
+    }
+  });
+
+  function mostrar_cadastrar_se() {
+    document.getElementById('divMeuLogin').style.display = 'none';
+    document.getElementById('div_cadastrar_se').style.display = 'grid';
+  }
+
+  function enviar_email_confirmacao() {
+
+    var novo_usuario = document.getElementById('novo_usuario').value;
+    var novo_email = document.getElementById('novo_email').value;
+    var nova_senha = document.getElementById('nova_senha').value;
+
+    console.log(novo_usuario);
+    console.log(novo_email);
+    console.log(nova_senha);
+
+    $.ajax({
+      type: 'POST',
+      data: {
+        qualFuncao: 'confirmacao_email',
+        novo_usuario: novo_usuario,
+        novo_email: novo_email,
+        nova_senha: nova_senha,
+      },
+      url: minhaUrl,
+    }).done(function (data) {
+      document.getElementById('novo_usuario').value = "";
+      document.getElementById('novo_email').value = "";
+      document.getElementById('nova_senha').value = "";
+
+      alert('Email Enviado!')
+    });
+  }
+
+  function btnLogin() {
+    var userName = document.getElementById('userName').value;
+    var password = document.getElementById('password').value;
+
+    localStorage.setItem('userName', '');
+    localStorage.setItem('password', '');
+
+    localStorage.setItem('userName', userName);
+    localStorage.setItem('password', password);
+
+    userName = localStorage.getItem('userName');
+    password = localStorage.getItem('password');
+
+    $.ajax({
+      type: "POST",
+      data: {
+        qualFuncao: "fazLogin",
+        userName: userName,
+        password: password,
+      },
+      url: minhaUrl,
+    }).done(function (data) {
+      console.log(data);
+
+      if (data == 'true') {
+        // USUÁRIO LOGADO
+
+        $('#divDentroDoSistema').fadeOut(0, function () {
+          $('#divDentroDoSistema').fadeIn(250);
+        });
+        document.getElementById('divDentroDoSistema').style.display = 'grid';
+        document.getElementById('divMeuLogout').style.display = 'block';
+        document.getElementById('menuDeNavegacao').style.display = 'block';
+        document.getElementById('divMeuLogin').style.display = 'none';
+        document.getElementById('usuarioLogado').innerHTML = 'Bem Vindo (a), ' + userName;
+      } else {
+        // USUÁRIO NÃO-LOGADO 
+
+        $('#divMeuLogin').effect('bounce', {
+          times: 5,
+          distance: 30
+        }, 1000);
+
+        // Mostar o Popup
+        $('#popup').show();
+
+        document.getElementById('divMeuLogin').style.display = 'grid';
+      }
+    })
+  }
+
+  function btnLogout() {
+
+    var userName = document.getElementById('userName').value;
+    var password = document.getElementById('password').value;
+
+    localStorage.setItem('userName', '');
+    localStorage.setItem('password', '');
+
+    $('#divMeuLogin').fadeOut(0, function () {
+      $('#divMeuLogin').fadeIn(1000);
+    });
+
+    document.getElementById('divDentroDoSistema').style.display = 'none';
+    document.getElementById('divMeuLogin').style.display = 'grid';
+    document.getElementById('divMeuLogout').style.display = 'none';
+    document.getElementById('menuDeNavegacao').style.display = 'none';
+    document.getElementById(
+      'formularioDeCadastroDeFuncionario'
+    ).style.display = 'none';
+    document.getElementById('divTabelaDeFuncionarios').style.display =
+      'none';
+
+    try {
+      $('#example').DataTable().clear();
+      $('#example').DataTable().destroy();
+    } catch (e) {
+      console.log(e);
+    }
+
+    document.getElementById('userName').value = '';
+    document.getElementById('password').value = '';
+  }
+
+  function excluirEsteId() {
+    var idDoFuncionario = document.getElementById('idDoFuncionario').value;
+
+    ///// PARTE DA AUTENTICAÇÃO DO USUÁRIO //////////////////
+    var userName = localStorage.getItem('userName');
+    var password = localStorage.getItem('password');
+    /////////////////////////////////////////////////////////
+
+    if (idDoFuncionario == "") {
+      alert('Selecione o Funcionário a ser Excluído!')
+    } else {
+      console.log(idDoFuncionario);
+      $.ajax({
+        type: "POST",
+        data: {
+          qualFuncao: "removerFuncionario",
+          idDoFuncionario: idDoFuncionario,
+          userName: userName,
+          password: password,
+        },
+        url: minhaUrl,
+      }).done(function () {
+        document.getElementById('idDoFuncionario').value = '';
+        document.getElementById('nomeDoFuncionario').value = '';
+        document.getElementById('cargoDoFuncionario').value = '';
+        document.getElementById('salarioDoFuncionario').value = '';
+        alert("Funcionário Excluído com Sucesso!");
+        abreTabelaDeFuncionarios();
+      })
+    }
+  }
+
+  function abreCadastroDeFuncionarios() {
+    $('#formularioDeCadastroDeFuncionario').fadeOut(0, function () {
+      $('#formularioDeCadastroDeFuncionario').fadeIn(250);
+    });
+    document.getElementById("formularioDeCadastroDeFuncionario").style.display = "block";
+    document.getElementById("divTabelaDeFuncionarios").style.display = "none";
+    document.getElementById("formularioDeAlteracaoDeSenha").style.display = "none";
+  }
+
+  function abreAlteracaoDeSenha() {
+    $('#formularioDeAlteracaoDeSenha').fadeOut(0, function () {
+      $('#formularioDeAlteracaoDeSenha').fadeIn(250);
+    });
+    document.getElementById('formularioDeAlteracaoDeSenha').style.display = "block";
+    document.getElementById("divTabelaDeFuncionarios").style.display = "none";
+    document.getElementById("formularioDeCadastroDeFuncionario").style.display = "none";
+  }
+
+  function abreTabelaDeFuncionarios() {
+    $('#divTabelaDeFuncionarios').fadeOut(0, function () {
+      $('#divTabelaDeFuncionarios').fadeIn(250);
+    });
+
+    document.getElementById("divTabelaDeFuncionarios").style.display = "block";
+    document.getElementById("formularioDeCadastroDeFuncionario").style.display = "none";
+    document.getElementById("formularioDeAlteracaoDeSenha").style.display = "none";
+    lerDadosDaTabela();
+  }
+
+  function disparaAoClicar() {
+    var idDoFuncionario = document.getElementById('idDoFuncionario').value;
+    var nomeDoFuncionario = document.getElementById('nomeDoFuncionario').value;
+    var cargoDoFuncionario = document.getElementById('cargoDoFuncionario').value;
+    var salarioDoFuncionario = document.getElementById('salarioDoFuncionario').value;
+
+    ///// PARTE DA AUTENTICAÇÃO DO USUÁRIO //////////////////
+    var userName = localStorage.getItem('userName');
+    var password = localStorage.getItem('password');
+    /////////////////////////////////////////////////////////
+
+    $.ajax({
+      type: 'POST',
+      data: {
+        qualFuncao: 'entradaDeFuncionario',
+        userName: userName,
+        password: password,
+        idDoFuncionario: idDoFuncionario,
+        nomeDoFuncionario: nomeDoFuncionario,
+        cargoDoFuncionario: cargoDoFuncionario,
+        salarioDoFuncionario: salarioDoFuncionario,
+      },
+      url: minhaUrl,
+    }).done(function (data) {
+      document.getElementById('idDoFuncionario').value = '';
+      document.getElementById('nomeDoFuncionario').value = '';
+      document.getElementById('cargoDoFuncionario').value = '';
+      document.getElementById('salarioDoFuncionario').value = '';
+
+      alert(data);
+      abreTabelaDeFuncionarios();
+    });
+  }
+
+  function alterarASenha() {
+    var userName = localStorage.getItem('userName');
+    var password = localStorage.getItem('password');
+
+    var senhaAntiga = document.getElementById('idDaSenhaAntiga').value;
+    var senhaNova = document.getElementById('idDaSenhaNova').value;
+
+    $.ajax({
+      type: 'POST',
+      data: {
+        qualFuncao: 'alterarSenha',
+        userName: userName,
+        password: password,
+        senhaAntiga: senhaAntiga,
+        senhaNova: senhaNova,
+      },
+      url: minhaUrl,
+    }).done(function (data) {
+      console.log(data);
+
+      if (data == '"Senha Alterada!"') {
+        alert(data);
+        document.getElementById('formularioDeAlteracaoDeSenha').style.display = 'none';
+        document.getElementById('idDaSenhaAntiga').value = '';
+        document.getElementById('idDaSenhaNova').value = '';
+
+        localStorage.setItem('userName', '');
+        localStorage.setItem('password', '');
+
+        localStorage.setItem('userName', userName);
+        localStorage.setItem('password', senhaNova);
+      } else {
+        alert(data);
+      }
+    });
+  }
+
+  function lerDadosDaTabela() {
+    ///// PARTE DA AUTENTICAÇÃO DO USUÁRIO //////////////////
+    var userName = localStorage.getItem('userName');
+    var password = localStorage.getItem('password');
+    /////////////////////////////////////////////////////////
+
+    $.ajax({
+      type: 'POST',
+      data: {
+        userName: userName,
+        password: password,
+        qualFuncao: 'lerFuncionarios',
+      },
+      url: minhaUrl,
+    }).done(function (data) {
+      // GERAÇÃO DA TABELA
+      try {
+        $('#example').DataTable().clear();
+        $('#example').DataTable().destroy();
+      } catch (e) {
+        console.log(e);
+      }
+
+      var data = JSON.parse(data);
+
+      $('#example').DataTable({
+        data: data,
+        deferRender: true,
+        scrollY: 200,
+        scrollCollapse: true,
+        scroller: true,
+      });
+
+      // ADICIONANDO UM OUVINTE
+      var table = $('#example').DataTable();
+      $('#example').on('click', 'tr', function (e) {
+        abreCadastroDeFuncionarios();
+        var data = e.currentTarget.getElementsByTagName('td');
+        document.getElementById('idDoFuncionario').value = data[0].innerHTML;
+        document.getElementById('nomeDoFuncionario').value =
+          data[1].innerHTML;
+        document.getElementById('cargoDoFuncionario').value =
+          data[2].innerHTML;
+        document.getElementById('salarioDoFuncionario').value =
+          data[3].innerHTML;
+      });
+    });
+  }
+</script>
+
+</html>
