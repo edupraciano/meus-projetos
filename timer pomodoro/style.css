@@ -1,0 +1,126 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box !important;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto !important;
+  /* background-color: #1c8f2f !important; */
+  padding: 2rem;
+  height: 80% - 3rem !important;
+  min-height: auto 0;
+}
+
+input[type="number"] {
+  width: 8rem !important;
+  height: 8rem !important;
+  font-size: 5rem !important;
+  text-align: center !important;
+  background-color: #6e6e6e !important;
+  color: #fff !important;
+}
+
+/* Tirar o botão de mais e menos do input tipo number */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: none;
+}
+
+.time {
+  color: #fff;
+  text-align: center;
+  width: 20rem;
+  height: 20rem;
+  border-radius: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto !important;
+}
+
+#seconds_ok {
+  margin-left: 10px;
+}
+
+h2 {
+  font-size: 80pt;
+}
+
+#timer {
+  display: none !important;
+}
+
+footer {
+  position: relative;
+  top: -30px;
+}
+
+.footer > p {
+  font-size: 1rem;
+}
+
+#p2 {
+  position: relative;
+  top: -10px;
+}
+
+#arquivoMp3 {
+  position: relative;
+  top: -2rem;
+  margin: 0rem auto !important;
+}
+
+#arquivoMp3 > input {
+  height: 2rem;
+  padding-bottom: 1rem;
+  margin: 0 auto !important;
+}
+
+.input-group {
+  margin-top: 2rem;
+  position: relative;
+  top: -5rem;
+  background-color: #e21818 !important;
+}
+
+.custom-file > input {
+  background-color: #ccc !important;
+}
+
+#title_sessao {
+  margin: 1rem auto !important;
+}
+
+.form-control {
+  position: relative;
+  /* top: -20px; */
+  width: 100%;
+  margin: 1rem auto !important;
+  height: 2.7rem;
+}
+
+.box {
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+
+#btn-iniciar {
+  position: relative;
+  top: -20px;
+}
+
+div#fim {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto !important;
+  padding: 8rem;
+}
