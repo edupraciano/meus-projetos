@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Média</title>
+</head>
+
+<body>
+
+  <main>
+    <section id="container">
+      <h2>Calcular Média</h2>
+      <hr>
+
+      <div>
+
+        <div id="inputs">
+
+          <div id="divNome">
+            <p>Nome do Aluno</p>
+            <input id="cxNome" type="text" required> <br>
+          </div>
+
+          <div id="divNotas">
+            <div class="nota_01">
+              <p> Nota 01</p>
+              <input id="nota1" type="number" required>
+            </div>
+
+            <div class="nota_02">
+              <p> Nota 02</p>
+              <input id="nota2" type="number" required>
+            </div>
+          </div>
+
+        </div>
+
+        <div id="btn">
+          <button id="btn-calc" onclick="calcularMedia()" type="button">Calcular</button>
+          <button id="btn-limp" onclick="limparForm()" type="reset">Limpar</button>
+          <br>
+        </div>
+
+        <hr>
+
+
+        <div id="resultado">
+          <h3>Resultado</h3>
+          <div id="saida">
+            <div class="mediaFinal">
+              <label for="">Média Final</label>
+              <input id="cxMedia" type="number" readonly>
+            </div>
+
+            <div class="situacaoFinal">
+              <label for="">Situação</label>
+              <input id="cxSituacao" type="text" readonly>
+            </div>
+          </div>
+
+          <div id="res">
+            <span id="msg"></span>
+          </div>
+
+
+
+
+        </div>
+
+    </section>
+  </main>
+
+
+
+  <script src="script.js"></script>
+</body>
+
+</html>
