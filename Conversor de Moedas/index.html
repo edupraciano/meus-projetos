@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversor de Moedas</title>
+</head>
+
+<body>
+
+  <main>
+    <div id="container">
+      <div id="divTitulo">
+        <h2 id="titulo" class="titulo-conversor">Conversor de Moedas</h2>
+      </div>
+
+      <div id="divCaixaDeEntrada">
+        <p> R$ </p>
+        <input id="caixaDeEntrada" type="number">
+      </div>
+
+      <div id="form-group">
+        <div class="dolar">
+          <input type="radio" id="inputDolar" name="moedaEstrageira" value="dolar">
+          <label for="inputDolar">Dólar</label>
+        </div>
+
+        <div class="euro">
+          <input type="radio" id="inputEuro" name="moedaEstrageira" value="euro">
+          <label for="inputEuro">Euro</label>
+        </div>
+
+        <div class="libra">
+          <input type="radio" id="inputLibra" name="moedaEstrageira" value="libra">
+          <label for="inputLibra">Libra</label>
+        </div>
+
+        <div class="bitcoin">
+          <input type="radio" id="inputBitcoin" name="moedaEstrageira" value="bitcoin">
+          <label for="inputBitcoin">Bitcoin</label>
+        </div>
+      </div>
+
+      <div id="divBtn">
+        <button onclick="converterMoeda()" id="btn-converter">Converter</button>
+        <button onclick="limpar()" id="btn-limpar">Limpar</button>
+      </div>
+
+      <div id="divCxDeSaida">
+        <input id="cxDeSaida" type="text" readonly
+          placeholder="Digite um valor válido, escolha uma moeda e clique em Converter.">
+      </div>
+
+      <div id="divImagens">
+        <img id="img-01" src="../img/real.png"></img>
+        <img id="img-02" src="../img/dolar.png"></img>
+      </div>
+
+    </div>
+    </div>
+  </main>
+
+
+  <script src="script.js"></script>
+</body>
+
+</html>
